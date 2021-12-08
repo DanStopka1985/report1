@@ -1,0 +1,16 @@
+Result  (cost=16.89..16.90 rows=1 width=32) (actual time=0.021..0.021 rows=1 loops=1)
+"  Output: COALESCE($1, 'indiv not found'::text)"
+  Buffers: shared hit=3
+  InitPlan 2 (returns $1)
+    ->  Index Scan using indiv_pkey on public.indiv i  (cost=8.87..16.89 rows=1 width=32) (actual time=0.018..0.018 rows=0 loops=1)
+"          Output: concat_ws(' '::text, i.sname, i.fname, i.mname)"
+          Index Cond: (i.id = $0)
+          Buffers: shared hit=3
+          InitPlan 1 (returns $0)
+            ->  Index Scan using indiv_code_idx on public.indiv_code ic  (cost=0.42..8.45 rows=1 width=4) (actual time=0.015..0.015 rows=0 loops=1)
+                  Output: ic.indiv_id
+                  Index Cond: (ic.code = 'd0cd20f38f1c73cde6db4b8ce2fcffd6'::text)
+                  Filter: (ic.type_id = 1)
+                  Buffers: shared hit=3
+Planning Time: 0.170 ms
+Execution Time: 0.040 ms
